@@ -20,7 +20,7 @@ import academy.tochkavhoda.competition.exception.NotFoundException;
 import academy.tochkavhoda.competition.model.Application;
 import academy.tochkavhoda.competition.model.Expert;
 import academy.tochkavhoda.competition.model.Participant;
-import academy.tochkavhoda.competition.server.dto.ServerResponse;
+import academy.tochkavhoda.competition.dto.response.ServerResponse;
 import academy.tochkavhoda.competition.service.AuthService;
 import academy.tochkavhoda.competition.service.ExpertService;
 import academy.tochkavhoda.competition.service.GrantService;

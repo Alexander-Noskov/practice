@@ -14,7 +14,7 @@ import academy.tochkavhoda.competition.daoimpl.InMemoryTokenDao;
 import academy.tochkavhoda.competition.daoimpl.InMemoryUserDao;
 import academy.tochkavhoda.competition.database.Database;
 import academy.tochkavhoda.competition.dto.response.TokenDto;
-import academy.tochkavhoda.competition.server.dto.ServerResponse;
+import academy.tochkavhoda.competition.dto.response.ServerResponse;
 import academy.tochkavhoda.competition.service.AuthService;
 import academy.tochkavhoda.competition.service.ExpertService;
 import academy.tochkavhoda.competition.service.GrantService;

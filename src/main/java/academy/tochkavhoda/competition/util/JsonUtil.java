@@ -1,6 +1,6 @@
 package academy.tochkavhoda.competition.util;
 
-import academy.tochkavhoda.competition.server.dto.ServerResponse;
+import academy.tochkavhoda.competition.dto.response.ServerResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
