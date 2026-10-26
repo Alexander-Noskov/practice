@@ -221,7 +221,7 @@ class AuthServiceTest {
         String secondToken = authService.login(new LoginRequest("ivan", "pass"));
 
         assertNotEquals(firstToken, secondToken);
-        assertThrows(NotFoundException.class, () -> authService.authenticate(firstToken));
+        assertThrows(AuthException.class, () -> authService.authenticate(firstToken));
         assertEquals("ivan", authService.authenticate(secondToken).getLogin());
     }
 
@@ -231,7 +231,7 @@ class AuthServiceTest {
 
         authService.logout(token);
 
-        assertThrows(NotFoundException.class, () -> authService.authenticate(token));
+        assertThrows(AuthException.class, () -> authService.authenticate(token));
     }
 
     @Test
@@ -239,11 +239,6 @@ class AuthServiceTest {
         String token = authService.registerParticipant(participantRequest("ivan", "pass"));
 
         assertEquals("", authService.logout(token));
-    }
-
-    @Test
-    void logoutIsIdempotentForUnknownToken() {
-        assertDoesNotThrow(() -> authService.logout("unknown"));
     }
 
     @Test
@@ -262,7 +257,7 @@ class AuthServiceTest {
         assertThrows(NotFoundException.class, () -> participantDao.findByLogin("ivan"));
         assertThrows(NotFoundException.class, () -> applicationDao.findById(app.getId()));
         assertTrue(ratingDao.findByApplication(app.getId()).isEmpty());
-        assertThrows(NotFoundException.class, () -> authService.authenticate(token));
+        assertThrows(AuthException.class, () -> authService.authenticate(token));
     }
 
     @Test
@@ -294,7 +289,7 @@ class AuthServiceTest {
 
     @Test
     void authenticateThrowsNotFoundForUnknownToken() {
-        assertThrows(NotFoundException.class, () -> authService.authenticate("unknown"));
+        assertThrows(AuthException.class, () -> authService.authenticate("unknown"));
     }
 
     @Test

@@ -2,6 +2,7 @@ package academy.tochkavhoda.competition.service;
 
 import academy.tochkavhoda.competition.daoimpl.InMemoryTokenDao;
 import academy.tochkavhoda.competition.database.Database;
+import academy.tochkavhoda.competition.exception.AuthException;
 import academy.tochkavhoda.competition.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,7 +51,7 @@ class TokenServiceTest {
 
         assertNotEquals(oldToken, newToken);
         assertEquals("ivan", tokenDao.findLoginByToken(newToken));
-        assertThrows(NotFoundException.class,
+        assertThrows(AuthException.class,
                 () -> tokenDao.findLoginByToken(oldToken));
     }
 
@@ -74,7 +75,7 @@ class TokenServiceTest {
 
     @Test
     void authenticateThrowsNotFoundExceptionForUnknownToken() {
-        assertThrows(NotFoundException.class,
+        assertThrows(AuthException.class,
                 () -> tokenService.authenticate("unknown"));
     }
 
@@ -83,7 +84,7 @@ class TokenServiceTest {
         String token = tokenService.issue("ivan");
         tokenService.logout(token);
 
-        assertThrows(NotFoundException.class,
+        assertThrows(AuthException.class,
                 () -> tokenService.authenticate(token));
     }
 
@@ -93,7 +94,7 @@ class TokenServiceTest {
 
         tokenService.logout(token);
 
-        assertThrows(NotFoundException.class,
+        assertThrows(AuthException.class,
                 () -> tokenService.authenticate(token));
     }
 
@@ -105,7 +106,7 @@ class TokenServiceTest {
         tokenService.logout(ivanToken);
 
         assertEquals("petr", tokenService.authenticate(petrToken));
-        assertThrows(NotFoundException.class,
+        assertThrows(AuthException.class,
                 () -> tokenService.authenticate(ivanToken));
     }
 
@@ -122,7 +123,7 @@ class TokenServiceTest {
         String newToken = tokenService.issue("ivan");
 
         assertEquals("ivan", tokenService.authenticate(newToken));
-        assertThrows(NotFoundException.class,
+        assertThrows(AuthException.class,
                 () -> tokenService.authenticate(oldToken));
     }
 
@@ -132,7 +133,7 @@ class TokenServiceTest {
 
         tokenService.revokeByLogin("ivan");
 
-        assertThrows(NotFoundException.class,
+        assertThrows(AuthException.class,
                 () -> tokenService.authenticate(token));
     }
 
@@ -144,7 +145,7 @@ class TokenServiceTest {
         tokenService.revokeByLogin("ivan");
 
         assertEquals("petr", tokenService.authenticate(petrToken));
-        assertThrows(NotFoundException.class,
+        assertThrows(AuthException.class,
                 () -> tokenService.authenticate(ivanToken));
     }
 

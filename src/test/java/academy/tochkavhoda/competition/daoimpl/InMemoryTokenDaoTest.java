@@ -1,6 +1,7 @@
 package academy.tochkavhoda.competition.daoimpl;
 
 import academy.tochkavhoda.competition.database.Database;
+import academy.tochkavhoda.competition.exception.AuthException;
 import academy.tochkavhoda.competition.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,7 +52,7 @@ class InMemoryTokenDaoTest {
 
     @Test
     void findLoginByTokenThrowsNotFoundExceptionForUnknownToken() {
-        assertThrows(NotFoundException.class,
+        assertThrows(AuthException.class,
                 () -> tokenDao.findLoginByToken("unknown"));
     }
 
@@ -61,7 +62,7 @@ class InMemoryTokenDaoTest {
 
         tokenDao.delete("token-1");
 
-        assertThrows(NotFoundException.class,
+        assertThrows(AuthException.class,
                 () -> tokenDao.findLoginByToken("token-1"));
     }
 
@@ -78,7 +79,7 @@ class InMemoryTokenDaoTest {
         tokenDao.delete("token-1");
 
         assertEquals("petr", tokenDao.findLoginByToken("token-2"));
-        assertThrows(NotFoundException.class,
+        assertThrows(AuthException.class,
                 () -> tokenDao.findLoginByToken("token-1"));
     }
 
@@ -90,7 +91,7 @@ class InMemoryTokenDaoTest {
         tokenDao.save("token-2", "ivan");
 
         assertEquals("ivan", tokenDao.findLoginByToken("token-2"));
-        assertThrows(NotFoundException.class,
+        assertThrows(AuthException.class,
                 () -> tokenDao.findLoginByToken("token-1"));
     }
 }
